@@ -9,8 +9,8 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 @RunWith(Parameterized.class)
 public class LionClassTest {
-    private String SEX;
-    private boolean HAS_MANE;
+    private final String SEX;
+    private final boolean HAS_MANE;
     public LionClassTest(String sex, boolean hasMane) throws Exception {
         this.SEX = sex;
         this.HAS_MANE = hasMane;
@@ -42,7 +42,6 @@ public class LionClassTest {
     @Test
     public void lionGetKittensTest() {
         Feline feline = new Feline();
-        Feline felineSpy = Mockito.spy(feline);
         Lion lion = new Lion(feline);
         Lion lionSpy = Mockito.spy(lion);
         lionSpy.getKittens();

@@ -1,5 +1,4 @@
 import com.example.Feline;
-import com.example.Lion;
 import org.junit.Assert;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
