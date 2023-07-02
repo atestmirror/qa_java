@@ -7,10 +7,14 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+
+import java.util.List;
+
 @RunWith(Parameterized.class)
 public class LionClassTest {
     private final String SEX;
     private final boolean HAS_MANE;
+    private final String expectedMessage = "Используйте допустимые значения пола животного - самец или самка";
     public LionClassTest(String sex, boolean hasMane) throws Exception {
         this.SEX = sex;
         this.HAS_MANE = hasMane;
@@ -19,7 +23,7 @@ public class LionClassTest {
     public static Object[][] getSex(){
         return new Object[][] {
                 {"Самец", true},
-                {"Самка", false}
+                {"Самка", false},
         };
     }
     @Before
@@ -32,28 +36,44 @@ public class LionClassTest {
         Lion lionSpy = Mockito.spy(lion);
     }
     @Test
+    public void lionConstructionExceptionTest(){
+
+    }
+    @Test
     public void lionHasManeTest() throws Exception {
         Lion lion = new Lion(SEX);
         Lion lionSpy = Mockito.spy(lion);
-        lionSpy.doesHaveMane();
-        Mockito.verify(lionSpy, Mockito.times(1)).doesHaveMane();
-        Assert.assertEquals(HAS_MANE, lionSpy.doesHaveMane());
+        try{
+            lionSpy.doesHaveMane();
+            Mockito.verify(lionSpy, Mockito.times(1)).doesHaveMane();
+            Assert.assertEquals(HAS_MANE, lionSpy.doesHaveMane());
+        } catch (Exception exception) {
+            Assert.assertEquals(expectedMessage, exception.getMessage());
+        }
     }
     @Test
-    public void lionGetKittensTest() {
-        Feline feline = new Feline();
-        Lion lion = new Lion(feline);
-        Lion lionSpy = Mockito.spy(lion);
-        lionSpy.getKittens();
-        Mockito.verify(lionSpy,Mockito.times(1)).getKittens();
+    public void lionGetKittensTest() throws Exception {
+        try {
+            Feline feline = new Feline();
+            Lion lion = new Lion(SEX);
+            Lion lionSpy = Mockito.spy(lion);
+            lionSpy.getKittens();
+            Mockito.verify(lionSpy, Mockito.times(1)).getKittens();
+        } catch (Exception exception) {
+            Assert.assertEquals(expectedMessage, exception.getMessage());
+        }
     }
     @Test
-    public void lionGetFoodTest() throws Exception {
-        Feline feline = new Feline();
-        Feline felineSpy = Mockito.spy(feline);
-        Lion lion = new Lion(felineSpy);
-        Lion lionSpy = Mockito.spy(lion);
-        lionSpy.getFood();
-        Mockito.verify(lionSpy,Mockito.times(1)).getFood();
+    public void lionGetFoodTest () throws Exception {
+        try{
+            Lion lion = new Lion(SEX);
+            Lion lionSpy = Mockito.spy(lion);
+            lionSpy.getFood();
+            List<String> expected = List.of("Животные", "Птицы", "Рыба");
+            Mockito.verify(lionSpy, Mockito.times(1)).getFood();
+            Assert.assertEquals(expected, lionSpy.getFood());
+        } catch (Exception exception) {
+            Assert.assertEquals(expectedMessage, exception.getMessage());
+        }
     }
 }

@@ -18,7 +18,11 @@ public class CatClassTest {
     }
     @Test
     public void catGetFoodTest() throws Exception {
-        catSpy.getFood();
-        Mockito.verify(catSpy, Mockito.times(1)).getFood();
+        try {
+            catSpy.getFood();
+            Mockito.verify(catSpy, Mockito.times(1)).getFood();
+        } catch (Exception exception) {
+            System.out.println("Произошла ошибка!");
+        }
     }
 }

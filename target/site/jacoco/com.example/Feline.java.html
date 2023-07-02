@@ -2,7 +2,7 @@
 
 import java.util.List;
 
-<span class="fc" id="L5">public class Feline implements Predator, FelineInterface {</span>
+<span class="fc" id="L5">public class Feline extends Animal implements Predator {</span>
 
     @Override
     public List&lt;String&gt; eatMeat() throws Exception {
@@ -11,6 +11,13 @@ import java.util.List;
     @Override
     public String getFamily() {
 <span class="fc" id="L13">        return &quot;Кошачьи&quot;;</span>
+    }
+    public int getKittens() {
+<span class="fc" id="L16">        return getKittens(1);</span>
+    }
+
+    public int getKittens(int kittensCount) {
+<span class="fc" id="L20">        return kittensCount;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
